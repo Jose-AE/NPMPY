@@ -4,7 +4,8 @@
   "description": "NPMPY",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "run": "tsc && npx npmpy"
   },
   "repository": {
     "type": "git",
