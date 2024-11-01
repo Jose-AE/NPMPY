@@ -11,29 +11,16 @@ A package manager for Python, inspired by npm, designed to simplify the installa
 - Batch package installation and uninstallation
 
 ## Prerequisites
-
 Before installing npmpy, make sure you have:
+1. **Node.js 20 or higher** installed and added to your system's PATH
+  - Download from [nodejs.org](https://nodejs.org)
+  - Verify installation with `node --version` (should show 20.x.x or higher)
+  - Ensure `npm` is accessible from your terminal
 
-1. **Node.js** installed and added to your system's PATH
-
-   - Download from [nodejs.org](https://nodejs.org)
-   - Verify installation with `node --version`
-   - Ensure `npm` is accessible from your terminal
-
-2. **Python** installed and added to your system's PATH
-   - Download from [python.org](https://python.org)
-   - Verify installation with `python --version`
-
-To verify PATH setup:
-
-```bash
-# Check Node.js
-node --version
-npm --version
-
-# Check Python
-python --version
-```
+2. **Python 3.6 or higher** installed and added to your system's PATH
+  - Download from [python.org](https://python.org) 
+  - Verify installation with `python --version` (should show 3.6.x or higher)
+  - Verify installation with `pip --version`
 
 ## Installation
 
