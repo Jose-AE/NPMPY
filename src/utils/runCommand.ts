@@ -1,22 +1,21 @@
 import { spawn } from "child_process";
 
-export function runCommand(command: string, args: string[]): Promise<void> {
+export function runCommand(command: string, args: string[]): Promise<boolean> {
   const pip = spawn(command, args, {
     stdio: "inherit",
     shell: true,
   });
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     pip.on("close", (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`pip install failed with code ${code}`));
-      }
+      // Resolve with true if the command was successful, false otherwise
+      resolve(code === 0);
     });
 
     pip.on("error", (err) => {
-      reject(err);
+      // In case of an error, also resolve with false
+      console.error(err); // Optional: log the error if needed
+      resolve(false);
     });
   });
 }

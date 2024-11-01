@@ -21,8 +21,13 @@ program
 program
   .command("install")
   .alias("i")
-  .description("Install pip packages")
-  .argument("[packages...]", "pip package names to install") // Accept multiple packages
+  .description(
+    "Install pip packages. If no packages specified, installs from requirements.txt"
+  )
+  .argument(
+    "[packages...]",
+    "pip package names to install (optional: if none provided, uses requirements.txt)"
+  ) // Accept multiple packages
   .action(async (packages: string[]) => {
     if (packages.length === 0) {
       console.log(
@@ -37,13 +42,13 @@ program
         return;
       }
 
-      await ensureEnv();
+      const env = await ensureEnv();
+      if (!env) return;
 
       installRequirements();
     } else {
-      await ensureEnv();
-
-      //console.log(`Installing following packages: ${packages}`);
+      const env = await ensureEnv();
+      if (!env) return;
 
       console.log(
         styleText(["blue", "bold"], "Installing following packages:"),
@@ -60,7 +65,8 @@ program
   .alias("r")
   .description("Run a specified Python file")
   .action(async (file) => {
-    await ensureEnv();
+    const env = await ensureEnv();
+    if (!env) return;
 
     if (!fs.existsSync(file)) {
       console.error(`[Error]: Python file "${file}" not found.`);
@@ -81,7 +87,9 @@ program
   .description("Uninstall pip packages")
   .argument("[packages...]", "pip package names to uninstall") // Accept multiple packages
   .action(async (packages: string[]) => {
-    await ensureEnv();
+    const env = await ensureEnv();
+    if (!env) return;
+
     uninstallPackages(packages);
   });
 
