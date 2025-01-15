@@ -16,26 +16,17 @@ program
   .description(
     "A package manager for Python, inspired by npm, designed to simplify the installation and management Python packages."
   )
-  .version("1.0.1");
+  .version("1.2.0");
 
 program
   .command("install")
+  .allowUnknownOption()
   .alias("i")
-  .description(
-    "Install pip packages. If no packages specified, installs from requirements.txt"
-  )
-  .argument(
-    "[packages...]",
-    "pip package names to install (optional: if none provided, uses requirements.txt)"
-  ) // Accept multiple packages
+  .description("Install pip packages. If no packages specified, installs from requirements.txt")
+  .argument("[packages...]", "pip package names to install (optional: if none provided, uses requirements.txt)") // Accept multiple packages
   .action(async (packages: string[]) => {
     if (packages.length === 0) {
-      console.log(
-        styleText(
-          ["blue", "bold"],
-          "Installing dependencies from requirements.txt"
-        )
-      );
+      console.log(styleText(["blue", "bold"], "Installing dependencies from requirements.txt"));
 
       if (!fs.existsSync("requirements.txt")) {
         console.error("[Error]: No requirements.txt found in curent directory");
@@ -73,10 +64,7 @@ program
       return;
     }
 
-    console.log(
-      styleText(["blue", "bold"], `Running Python file:`),
-      styleText("yellow", file)
-    );
+    console.log(styleText(["blue", "bold"], `Running Python file:`), styleText("yellow", file));
     runPythonFile(file);
   });
 
